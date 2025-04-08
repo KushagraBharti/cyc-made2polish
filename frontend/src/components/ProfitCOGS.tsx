@@ -1,3 +1,4 @@
+// frontend/src/components/ProfitCOGS.tsx
 import React, { useEffect, useState } from 'react';
 
 interface ProfitData {
@@ -11,7 +12,7 @@ const ProfitCOGS: React.FC = () => {
 
   useEffect(() => {
     fetch("http://localhost:5000/api/profit")
-      .then((res) => res.json())
+      .then(res => res.json())
       .then(setData)
       .catch(console.error);
   }, []);
@@ -21,15 +22,18 @@ const ProfitCOGS: React.FC = () => {
   }
 
   return (
-    <div>
-      <h3>Cost of Goods Sold per SKU</h3>
-      <ul>
-        {Object.entries(data.cogsPerSKU).map(([sku, cost]) => (
-          <li key={sku}>{sku}: ${cost}</li>
-        ))}
-      </ul>
-      <p>Net Profit: ${data.netProfit}</p>
-      <p>Gross Margin: {data.grossMarginPercent}%</p>
+    <div style={{ marginBottom: '20px' }}>
+      <h2>Profit & COGS</h2>
+      <div>
+        <h3>COGS per SKU</h3>
+        <ul>
+          {Object.entries(data.cogsPerSKU).map(([sku, cost]) => (
+            <li key={sku}>{sku}: ${cost}</li>
+          ))}
+        </ul>
+        <p>Net Profit: ${data.netProfit}</p>
+        <p>Gross Margin: {data.grossMarginPercent}%</p>
+      </div>
     </div>
   );
 };
