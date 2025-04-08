@@ -1,4 +1,3 @@
-// frontend/src/components/InventoryTracker.tsx
 import React, { useEffect, useState } from 'react';
 
 interface InventoryData {
@@ -54,35 +53,49 @@ const InventoryTracker: React.FC = () => {
   };
 
   if (!data) {
-    return <p>Loading inventory data...</p>;
+    return <p className="text-gray-500">Loading inventory data...</p>;
   }
 
   return (
-    <div style={{ marginBottom: '20px' }}>
-      <h2>Inventory Tracker</h2>
-      <button onClick={handleAddInventory} style={{ marginRight: '10px', padding: '8px 12px' }}>
-        Add Inventory
-      </button>
-      <button onClick={handleSubtractInventory} style={{ padding: '8px 12px' }}>
-        Subtract Inventory
-      </button>
-      <h3>Units Available per Product</h3>
-      <ul>
-        {Object.entries(data.unitsAvailable).map(([product, units]) => (
-          <li key={product}>
-            {product}: {units} units
-            {data.lowStockAlert[product] && <strong style={{ color: "red" }}> - Low Stock!</strong>}
-          </li>
-        ))}
-      </ul>
-      <h3>Production Batches</h3>
-      <ul>
-        {data.productionBatches.map((batch) => (
-          <li key={batch.batch}>
-            {batch.batch} - {batch.product}: {batch.quantity} units produced
-          </li>
-        ))}
-      </ul>
+    <div>
+      <h2 className="text-2xl font-bold mb-4">Inventory Tracker</h2>
+      <div className="mb-4">
+        <button
+          onClick={handleAddInventory}
+          className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded mr-2 transition-colors"
+        >
+          Add Inventory
+        </button>
+        <button
+          onClick={handleSubtractInventory}
+          className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded transition-colors"
+        >
+          Subtract Inventory
+        </button>
+      </div>
+      <div className="mb-4">
+        <h3 className="text-xl font-semibold mb-2">Units Available per Product</h3>
+        <ul className="list-disc list-inside text-gray-700">
+          {Object.entries(data.unitsAvailable).map(([product, units]) => (
+            <li key={product}>
+              {product}: {units} units
+              {data.lowStockAlert[product] && (
+                <span className="text-red-500 font-bold"> - Low Stock!</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3 className="text-xl font-semibold mb-2">Production Batches</h3>
+        <ul className="list-disc list-inside text-gray-700">
+          {data.productionBatches.map((batch) => (
+            <li key={batch.batch}>
+              {batch.batch} - {batch.product}: {batch.quantity} units produced
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

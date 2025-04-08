@@ -1,7 +1,5 @@
-// frontend/src/components/SalesOverview.tsx
 import React, { useEffect, useState } from 'react';
 import { Bar, Pie } from 'react-chartjs-2';
-import { Chart as ChartJS } from 'chart.js/auto';
 
 interface SalesData {
   totalRevenue: Record<string, number>;
@@ -21,10 +19,9 @@ const SalesOverview: React.FC = () => {
   }, []);
 
   if (!data) {
-    return <p>Loading sales data...</p>;
+    return <p className="text-gray-500">Loading sales data...</p>;
   }
 
-  // Prepare data for the Bar chart (Sales by Period)
   const barChartData = {
     labels: data.salesByPeriod.map(item => item.period),
     datasets: [{
@@ -34,7 +31,6 @@ const SalesOverview: React.FC = () => {
     }]
   };
 
-  // Prepare data for the Pie chart (Revenue by Channel)
   const pieChartData = {
     labels: Object.keys(data.totalRevenue),
     datasets: [{
@@ -44,40 +40,33 @@ const SalesOverview: React.FC = () => {
     }]
   };
 
-  // Chart options that disable the default aspect ratio
   const chartOptions = {
     maintainAspectRatio: false
   };
 
   return (
     <div>
-      <h2>Sales Overview</h2>
-
-      {/* Pie Chart Container */}
-      <div style={{ marginBottom: '20px' }}>
-        <h3>Revenue by Channel (Pie Chart)</h3>
-        <div style={{ width: '300px', height: '300px' }}>
+      <h2 className="text-2xl font-bold mb-4">Sales Overview</h2>
+      <div className="mb-6">
+        <h3 className="text-xl font-semibold mb-2">Revenue by Channel (Pie Chart)</h3>
+        <div className="w-72 h-72">
           <Pie data={pieChartData} options={chartOptions} />
         </div>
       </div>
-
-      {/* Bar Chart Container */}
-      <div style={{ marginBottom: '20px' }}>
-        <h3>Sales by Period (Bar Chart)</h3>
-        <div style={{ width: '400px', height: '300px' }}>
+      <div className="mb-6">
+        <h3 className="text-xl font-semibold mb-2">Sales by Period (Bar Chart)</h3>
+        <div className="w-96 h-72">
           <Bar data={barChartData} options={chartOptions} />
         </div>
       </div>
-
-      {/* Additional Data */}
       <div>
-        <h3>Units Sold by Product</h3>
-        <ul>
+        <h3 className="text-xl font-semibold mb-2">Units Sold by Product</h3>
+        <ul className="list-disc list-inside text-gray-700">
           {Object.entries(data.unitsSold).map(([product, units]) => (
             <li key={product}>{product}: {units} units</li>
           ))}
         </ul>
-        <p>Average Order Value: ${data.averageOrderValue}</p>
+        <p className="text-gray-700 mt-2">Average Order Value: ${data.averageOrderValue}</p>
       </div>
     </div>
   );

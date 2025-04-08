@@ -1,4 +1,3 @@
-// frontend/src/components/DashboardTable.tsx
 import React, { useEffect, useState } from 'react';
 
 interface SalesData {
@@ -20,7 +19,6 @@ const DashboardTable: React.FC = () => {
     fetch("http://localhost:5000/api/sales")
       .then(response => response.json())
       .then(data => {
-        // Pick only the needed data for the dashboard
         const { totalRevenue, unitsSold, averageOrderValue } = data;
         setSalesData({ totalRevenue, unitsSold, averageOrderValue });
       })
@@ -33,43 +31,44 @@ const DashboardTable: React.FC = () => {
   }, []);
 
   if (!salesData || !profitData) {
-    return <p>Loading dashboard metrics...</p>;
+    return <p className="text-gray-500">Loading dashboard metrics...</p>;
   }
 
-  // Summarize key metrics
   const totalRevenue = Object.values(salesData.totalRevenue).reduce((a, b) => a + b, 0);
   const totalUnitsSold = Object.values(salesData.unitsSold).reduce((a, b) => a + b, 0);
 
   return (
-    <div style={{ marginBottom: '20px' }}>
-      <h2>Key Metrics</h2>
-      <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '20px' }}>
+    <div>
+      <h2 className="text-2xl font-bold mb-4">Key Metrics</h2>
+      <table className="min-w-full bg-white border border-gray-200">
         <thead>
-          <tr>
-            <th style={{ border: '1px solid #ccc', padding: '8px' }}>Metric</th>
-            <th style={{ border: '1px solid #ccc', padding: '8px' }}>Value</th>
+          <tr className="bg-gray-100">
+            <th className="py-2 px-4 border border-gray-200">Metric</th>
+            <th className="py-2 px-4 border border-gray-200">Value</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td style={{ border: '1px solid #ccc', padding: '8px' }}>Total Revenue</td>
-            <td style={{ border: '1px solid #ccc', padding: '8px' }}>${totalRevenue}</td>
+          <tr className="text-center">
+            <td className="py-2 px-4 border border-gray-200">Total Revenue</td>
+            <td className="py-2 px-4 border border-gray-200">${totalRevenue}</td>
           </tr>
-          <tr>
-            <td style={{ border: '1px solid #ccc', padding: '8px' }}>Total Units Sold</td>
-            <td style={{ border: '1px solid #ccc', padding: '8px' }}>{totalUnitsSold}</td>
+          <tr className="text-center">
+            <td className="py-2 px-4 border border-gray-200">Total Units Sold</td>
+            <td className="py-2 px-4 border border-gray-200">{totalUnitsSold}</td>
           </tr>
-          <tr>
-            <td style={{ border: '1px solid #ccc', padding: '8px' }}>Average Order Value</td>
-            <td style={{ border: '1px solid #ccc', padding: '8px' }}>${salesData.averageOrderValue}</td>
+          <tr className="text-center">
+            <td className="py-2 px-4 border border-gray-200">Average Order Value</td>
+            <td className="py-2 px-4 border border-gray-200">${salesData.averageOrderValue}</td>
           </tr>
-          <tr>
-            <td style={{ border: '1px solid #ccc', padding: '8px' }}>Net Profit</td>
-            <td style={{ border: '1px solid #ccc', padding: '8px' }}>${profitData.netProfit}</td>
+          <tr className="text-center">
+            <td className="py-2 px-4 border border-gray-200">Net Profit</td>
+            <td className="py-2 px-4 border border-gray-200">${profitData.netProfit}</td>
           </tr>
-          <tr>
-            <td style={{ border: '1px solid #ccc', padding: '8px' }}>Gross Margin %</td>
-            <td style={{ border: '1px solid #ccc', padding: '8px' }}>{profitData.grossMarginPercent}%</td>
+          <tr className="text-center">
+            <td className="py-2 px-4 border border-gray-200">Gross Margin %</td>
+            <td className="py-2 px-4 border border-gray-200">
+              {profitData.grossMarginPercent}%
+            </td>
           </tr>
         </tbody>
       </table>
