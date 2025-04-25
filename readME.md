@@ -6,53 +6,56 @@ python.exe -m pip install --upgrade pip
 pip install -r requirements.txt
 python app.py
 
+backend/
+├── .venv/                  # your virtualenv
+├── app.py                  # Flask app + blueprint registration
+├── config.py               # Load .env, define UPLOAD_DIR, CLEAN_DIR
+├── requirements.txt
+│
+├── routes/
+│   ├── upload.py           # /api/upload & /api/reprocess
+│   ├── sales.py            # /api/sales
+│   └── social.py           # /api/social
+│
+├── utils/
+│   ├── etl.py              # detect_source, process_file, TikTok & Etsy normalizers
+│   └── sku_mapper.py       # JSON load of SKU mappings
+│
+├── data/
+│   ├── raw/                # incoming CSV/XLSX
+│   └── cleaned/            # output JSON slices
+│
+└── logs/                   # app.log for requests & ETL
+
 # frontend setup
 cd frontend
 yarn install
 
-project-root/
+frontend/
+├── public/
+│   └── index.html
 │
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Login.tsx
-│   │   │   ├── FileUpload.tsx
-│   │   │   ├── ReprocessButton.tsx
-│   │   │   ├── DashboardCards.tsx
-│   │   │   ├── Charts/
-│   │   │   │   ├── SalesTrend.tsx
-│   │   │   │   ├── Forecast.tsx
-│   │   │   ├── Tables/
-│   │   │   │   ├── InventoryTable.tsx
-│   │   │   │   ├── SalesLog.tsx
-│   │   ├── firebase.ts         # Firebase config
-│   │   ├── App.tsx
-│   │   ├── main.tsx
-│   ├── tailwind.config.js
-│   └── vite.config.ts
+├── src/
+│   ├── components/
+│   │   ├── Navbar.tsx
+│   │   ├── ProtectedRoute.tsx
+│   │   ├── FileUploadModal.tsx
+│   │   ├── DashboardCard.tsx
+│   │   ├── SalesTrendChart.tsx
+│   │   ├── ForecastChart.tsx
+│   │   └── DataTable.tsx
+│   │
+│   ├── pages/
+│   │   ├── Login.tsx
+│   │   ├── Sales.tsx
+│   │   ├── Social.tsx
+│   │   └── Inventory.tsx
+│   │
+│   ├── firebase.ts         # Firebase init & helpers
+│   ├── App.tsx             # Router & layout
+│   └── main.tsx
 │
-├── backend/
-│   ├── app.py                  # Flask app entry point
-│   ├── requirements.txt
-│   ├── routes/
-│   │   ├── upload.py
-│   │   ├── dashboard.py
-│   │   ├── reprocess.py
-│   ├── utils/
-│   │   ├── etl.py              # Core data cleaning logic
-│   │   ├── forecasting.py
-│   │   ├── sku_mapper.py
-│   ├── data/
-│   │   ├── raw/                # Raw uploaded files
-│   │   ├── cleaned/            # Cleaned/normalized datasets
-│   ├── db/
-│   │   └── database.db         # SQLite database
-│   ├── models/
-│   │   ├── sales.py
-│   │   ├── inventory.py
-│   │   ├── social.py
-│   └── config.py
-│
-├── README.md
-└── .env
+├── tailwind.config.js
+├── tsconfig.json
+├── vite.config.ts
+└── package.json
