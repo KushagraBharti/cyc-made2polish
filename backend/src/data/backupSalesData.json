@@ -1,0 +1,44 @@
+[
+  {
+    "id": "backup1",
+    "date": "2025-04-13T00:00:00.000Z",
+    "platform": "popup",
+    "items": [
+      {
+        "sku": "SKU123",
+        "name": "Test Product",
+        "quantity": 2,
+        "price": 20,
+        "cogs": 10
+      }
+    ],
+    "customer": {
+      "name": "John Doe",
+      "region": "North"
+    },
+    "total": 40,
+    "netProfit": 20,
+    "channel": "popup"
+  },
+  {
+    "id": "backup2",
+    "date": "2025-04-12T00:00:00.000Z",
+    "platform": "etsy",
+    "items": [
+      {
+        "sku": "SKU456",
+        "name": "Another Product",
+        "quantity": 1,
+        "price": 50,
+        "cogs": 30
+      }
+    ],
+    "customer": {
+      "name": "Jane Smith",
+      "region": "South"
+    },
+    "total": 50,
+    "netProfit": 20,
+    "channel": "etsy"
+  }
+]
